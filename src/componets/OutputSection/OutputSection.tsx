@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import React from 'react';
 import { OutputPanelProps } from '@/types';
 
 export default function OutputPanel({
@@ -98,7 +97,7 @@ export default function OutputPanel({
                 </div>
             </div>
 
-            <div className="bg-obsidian-900/80 light:bg-slate-100 rounded-xl p-4 border border-slate-800 light:border-slate-200">
+            {/* <div className="bg-obsidian-900/80 light:bg-slate-100 rounded-xl p-4 border border-slate-800 light:border-slate-200">
                 <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                         <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 light:text-slate-600">Bi-LSTM Attention Weight Heatmap</span>
@@ -150,7 +149,7 @@ export default function OutputPanel({
                         </div>
                     )}
                 </div>
-            </div>
+            </div> */}
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="bg-obsidian-900/80 light:bg-slate-100 rounded-xl p-3 border border-slate-800 light:border-slate-200">

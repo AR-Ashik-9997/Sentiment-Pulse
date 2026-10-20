@@ -6,13 +6,11 @@ import { InputPanelProps } from '@/types';
 
 
 export default function InputPanel({
-    domain,
-    setDomain,
     inputText,
     handleInputChange,
     loadPreset,
     clearInput,
-    toggleVoiceDictation,
+    // toggleVoiceDictation,
     isDictating,
     wordCount,
     charCount,
@@ -29,26 +27,9 @@ export default function InputPanel({
             </div>
 
             <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 light:text-slate-600 mb-2">Target Domain / Model Context</label>
-                <div className="relative">
-                    <select
-                        value={domain}
-                        onChange={(e) => setDomain(e.target.value)}
-                        className="w-full bg-obsidian-900/90 light:bg-white text-slate-200 light:text-slate-800 border border-slate-700 light:border-slate-300 rounded-xl px-4 py-2.5 text-sm appearance-none focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all font-medium pr-10"
-                    >
-                        <option value="electronics">Amazon Electronics Reviews</option>
-                        <option value="customer_service">Customer Service Support Tickets</option>
-                        <option value="ecommerce">E-commerce Product Feedback</option>
-                        <option value="app_store">App Store & SaaS User Reviews</option>
-                    </select>
-                    <i className="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none text-xs"></i>
-                </div>
-            </div>
-
-            <div>
                 <div className="flex items-center justify-between mb-2">
                     <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 light:text-slate-600">Quick Review Presets</label>
-                    <span className="text-[10px] text-indigo-400 font-mono">One-click Load</span>
+                    <span className="text-[10px] text-indigo-400 font-mono">Sample input</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                     <button
@@ -79,13 +60,13 @@ export default function InputPanel({
                 <div className="flex items-center justify-between mb-2">
                     <label htmlFor="review-input" className="text-xs font-semibold uppercase tracking-wider text-slate-400 light:text-slate-600">Text Corpus Input</label>
                     <div className="flex items-center gap-2">
-                        <button
+                        {/* <button
                             onClick={toggleVoiceDictation}
                             className="text-xs text-slate-400 hover:text-indigo-400 transition-colors p-1"
                             title="Voice Dictation"
                         >
                             <i className={isDictating ? "fa-solid fa-microphone-lines text-rose-500 animate-pulse" : "fa-solid fa-microphone"}></i>
-                        </button>
+                        </button> */}
                         <button
                             onClick={clearInput}
                             className="text-xs text-slate-400 hover:text-rose-400 transition-colors p-1"

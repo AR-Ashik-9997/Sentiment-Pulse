@@ -1,7 +1,5 @@
 export interface HeaderProps {
   telemetryLatency: string;
-  isDark: boolean;
-  toggleTheme: () => void;
 }
 
 export interface TokenWeight {
@@ -34,8 +32,6 @@ export interface PresetData {
 }
 
 export interface InputPanelProps {
-  domain: string;
-  setDomain: (val: string) => void;
   inputText: string;
   handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   loadPreset: (type: 'positive' | 'negative' | 'neutral') => void;
@@ -58,10 +54,4 @@ export interface OutputPanelProps {
 export interface AnalyticsSectionProps {
   trendChartRef: React.RefObject<HTMLCanvasElement | null>;
   aspectChartRef: React.RefObject<HTMLCanvasElement | null>;
-  searchQuery: string;
-  setSearchQuery: (val: string) => void;
-  activeLogFilter: string;
-  setActiveLogFilter: (val: string) => void;
-  exportCSV: () => void;
-  filteredAuditLogs: AuditLog[];
 }

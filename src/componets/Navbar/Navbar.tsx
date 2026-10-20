@@ -3,11 +3,11 @@
 import { HeaderProps } from "@/types";
 
 
-export default function Header({ telemetryLatency, isDark, toggleTheme }: HeaderProps) {
+export default function Header({ telemetryLatency }: HeaderProps) {
   return (
     <header className="border-b border-slate-800/80 bg-obsidian-800/80 backdrop-blur-md sticky top-0 z-40 px-4 lg:px-8 py-3 transition-colors duration-300 light:bg-white/90 light:border-slate-200">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        
+
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-linear-to-tr from-indigo-600 via-cyan-500 to-emerald-400 p-0.5 flex items-center justify-center shadow-lg shadow-indigo-500/20">
@@ -18,7 +18,7 @@ export default function Header({ telemetryLatency, isDark, toggleTheme }: Header
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="font-bold text-lg tracking-tight text-white light:text-slate-900">
-                  SentimentPulse <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">AI PRO</span>
+                  Sentiment Pulse 
                 </h1>
               </div>
               <p className="text-xs text-slate-400 light:text-slate-500">Enterprise Deep Neural Analytics Platform</p>
@@ -47,18 +47,6 @@ export default function Header({ telemetryLatency, isDark, toggleTheme }: Header
             <i className="fa-solid fa-book-bookmark text-indigo-400"></i>
             <span>Vocab: <strong className="text-slate-200 light:text-slate-800">25,000+</strong></span>
           </div>
-
-          <button 
-            onClick={toggleTheme} 
-            className="p-2 rounded-lg bg-obsidian-700 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:text-white transition-colors border border-slate-700 light:border-slate-300 ml-2" 
-            title="Toggle Light/Dark Theme"
-          >
-            {isDark ? (
-              <i className="fa-solid fa-moon"></i>
-            ) : (
-              <i className="fa-solid fa-sun text-amber-500"></i>
-            )}
-          </button>
         </div>
       </div>
     </header>

@@ -399,8 +399,6 @@ export default function SentimentPulseApp() {
       <main className="max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-8 flex-1">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <InputPanel
-            domain={domain}
-            setDomain={setDomain}
             inputText={inputText}
             handleInputChange={handleInputChange}
             loadPreset={loadPreset}
@@ -424,12 +422,6 @@ export default function SentimentPulseApp() {
         <AnalyticsSection
           trendChartRef={trendChartRef}
           aspectChartRef={aspectChartRef}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          activeLogFilter={activeLogFilter}
-          setActiveLogFilter={setActiveLogFilter}
-          exportCSV={exportCSV}
-          filteredAuditLogs={filteredAuditLogs}
         />
       </main>
 
