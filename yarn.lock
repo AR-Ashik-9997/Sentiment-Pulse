@@ -342,6 +342,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-free@npm:^7.3.1":
+  version: 7.3.1
+  resolution: "@fortawesome/fontawesome-free@npm:7.3.1"
+  checksum: 10c0/85b70ea64e69b9635ff0b949871acaaf0e6c6fd41860b8a78a5067123a42dd71144f7f7feea7aee013a485166ee8bf8ee3aafb15146dc0f55512d07015adddee
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.2":
   version: 0.19.2
   resolution: "@humanfs/core@npm:0.19.2"
@@ -672,6 +679,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@kurkle/color@npm:^0.3.0":
+  version: 0.3.4
+  resolution: "@kurkle/color@npm:0.3.4"
+  checksum: 10c0/0e9fd55c614b005c5f0c4c755bca19ec0293bc7513b4ea3ec1725234f9c2fa81afbc78156baf555c8b9cb0d305619253c3f5bca016067daeebb3d00ebb4ea683
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^1.1.4":
   version: 1.2.5
   resolution: "@napi-rs/wasm-runtime@npm:1.2.5"
@@ -967,6 +981,28 @@ __metadata:
     "@tailwindcss/oxide": "npm:4.3.3"
     tailwindcss: "npm:4.3.3"
   checksum: 10c0/613fbf8fe516147b96cf9cf84d4665ccbdb00fabd4484ffe6ead6089dcfaec964e2127d3a81589781a32e915e7ebd0a2baf12b5fec1adc729af23c4f4572d4e4
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-core@npm:5.104.5":
+  version: 5.104.5
+  resolution: "@tanstack/query-core@npm:5.104.5"
+  checksum: 10c0/bc2f0626e33ccb1c881343e2b351168d6c07df01f42ed0b4f679d4ecc753af5864678f3e09f57bef500a02de5fc52cfef13aa7c3f2d3be6b62297bac024acaed
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.104.5":
+  version: 5.104.5
+  resolution: "@tanstack/react-query@npm:5.104.5"
+  dependencies:
+    "@tanstack/query-core": "npm:5.104.5"
+  peerDependencies:
+    "@types/react": ^18 || ^19
+    react: ^18 || ^19
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/eaff9dd4cec0cc43cf835d780efeaf0a2603b792cc2f5f5800a73b4f62b4562cce54b88885f74be72ea0fa7fc721636884ec4bae152b24aea9ce49544fb4c5d1
   languageName: node
   linkType: hard
 
@@ -1646,10 +1682,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chart.js@npm:^4.5.1":
+  version: 4.5.1
+  resolution: "chart.js@npm:4.5.1"
+  dependencies:
+    "@kurkle/color": "npm:^0.3.0"
+  checksum: 10c0/3f2a11dcaae9079e8e6b8ad077e2ae311f04996f9da14815730891e66215ee8b5f2c0eb70b5a156e5bde0f89a41bae13506dc6153e50fd22dcb282b21eec706f
+  languageName: node
+  linkType: hard
+
 "client-only@npm:0.0.1":
   version: 0.0.1
   resolution: "client-only@npm:0.0.1"
   checksum: 10c0/9d6cfd0c19e1c96a434605added99dff48482152af791ec4172fb912a71cff9027ff174efd8cdb2160cc7f377543e0537ffc462d4f279bc4701de3f2a3c4b358
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
   languageName: node
   linkType: hard
 
@@ -3237,6 +3289,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lucide-react@npm:^1.60.0":
+  version: 1.60.0
+  resolution: "lucide-react@npm:1.60.0"
+  peerDependencies:
+    "@types/react": "*"
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/710404ff9d6f29829866e369533c80a0163797412bd0f0af8595956f99544198e4a26800c93f5b1d8203aeb25fc2df7fddf583f7851fe40d697676f14aef5d39
+  languageName: node
+  linkType: hard
+
 "magic-string@npm:^0.30.21":
   version: 0.30.21
   resolution: "magic-string@npm:0.30.21"
@@ -3633,6 +3698,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-chartjs-2@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "react-chartjs-2@npm:5.3.1"
+  peerDependencies:
+    chart.js: ^4.1.1
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/40fac3fe23a163232d952bf5cd2a14d7baceadea326b57909d5e556ed2481b7cfb177582ac8f39b8dc51ac11f3d19a6127784746f35f5771181ab700110e7326
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:19.3.0":
   version: 19.3.0
   resolution: "react-dom@npm:19.3.0"
@@ -3813,15 +3888,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sentiment-pulse@workspace:."
   dependencies:
+    "@fortawesome/fontawesome-free": "npm:^7.3.1"
     "@tailwindcss/turbopack": "npm:^4"
+    "@tanstack/react-query": "npm:^5.104.5"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
+    chart.js: "npm:^4.5.1"
+    clsx: "npm:^2.1.1"
     eslint: "npm:^9"
     eslint-config-next: "npm:16.4.2"
+    lucide-react: "npm:^1.60.0"
     next: "npm:16.4.2"
     react: "npm:19.3.0"
+    react-chartjs-2: "npm:^5.3.1"
     react-dom: "npm:19.3.0"
+    tailwind-merge: "npm:^3.7.0"
     tailwindcss: "npm:^4"
     typescript: "npm:^5"
   languageName: unknown
@@ -4166,6 +4248,13 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 10c0/6c4032340701a9950865f7ae8ef38578d8d7053f5e10518076e6554a9381fa91bd9c6850193695c141f32b21f979c985db07265a758867bac95de05f7d8aeb39
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "tailwind-merge@npm:3.7.0"
+  checksum: 10c0/1b1439fe30b6ee63fc3abc1c985bf9beb8529eb2db21cc321bd8c7cf73f36cd4ec80846ea10af8ae09175810f385336c22a6ce355a0b5cce69432d49672f90c1
   languageName: node
   linkType: hard
 
