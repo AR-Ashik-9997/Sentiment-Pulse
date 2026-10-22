@@ -41,11 +41,11 @@ export default function Header({ telemetryLatency }: HeaderProps) {
           </div>
           <div className="flex items-center gap-2 bg-obsidian-900/60 light:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-800 light:border-slate-200">
             <i className="fa-solid fa-bullseye text-cyan-400"></i>
-            <span>Accuracy: <strong className="text-slate-200 light:text-slate-800">95.8%</strong></span>
+            <span>Accuracy: <strong className="text-slate-200 light:text-slate-800">82.56%</strong></span>
           </div>
           <div className="flex items-center gap-2 bg-obsidian-900/60 light:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-800 light:border-slate-200">
             <i className="fa-solid fa-book-bookmark text-indigo-400"></i>
-            <span>Vocab: <strong className="text-slate-200 light:text-slate-800">25,000+</strong></span>
+            <span>Vocab: <strong className="text-slate-200 light:text-slate-800">77000+</strong></span>
           </div>
         </div>
       </div>

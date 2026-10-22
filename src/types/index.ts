@@ -46,7 +46,7 @@ export interface InputPanelProps {
 
 export interface OutputPanelProps {
   inferenceTimestamp: string;
-  analysisResult: ApiResponse | null;
+  ApiResult: ApiResponse | null;
   copyAutoReply: () => void;
   copyStatus: string;
 }
@@ -54,6 +54,7 @@ export interface OutputPanelProps {
 export interface AnalyticsSectionProps {
   trendChartRef: React.RefObject<HTMLCanvasElement | null>;
   aspectChartRef: React.RefObject<HTMLCanvasElement | null>;
+  analysisResult: ApiResponse | null;
 }
 
 export interface ApiResponse {

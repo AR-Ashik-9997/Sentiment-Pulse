@@ -5,11 +5,11 @@ import { OutputPanelProps } from '@/types';
 
 export default function OutputPanel({
     inferenceTimestamp,
-    analysisResult,
+    ApiResult,
     copyAutoReply,
     copyStatus
 }: OutputPanelProps) {
-    const primaryResult = analysisResult?.detailed_results?.[0];
+    const primaryResult = ApiResult?.detailed_results?.[0];
     const isPositive = primaryResult?.prediction === 'Positive';
     const isNegative = primaryResult?.prediction === 'Negative';
     const confidencePercent = primaryResult ? (primaryResult.confidence * 100).toFixed(1) : '0.0';
@@ -304,7 +304,7 @@ export default function OutputPanel({
                     <div className="flex items-center gap-2 mt-2 pt-2 border-t border-slate-800/60 light:border-slate-200 text-xs text-slate-400">
                         <span>Positive Ratio:</span>
                         <span className="font-mono font-semibold text-emerald-400">
-                            {analysisResult ? analysisResult.summary["Positive Sentiment Ratio"] : '0%'}
+                            {ApiResult ? ApiResult.summary["Positive Sentiment Ratio"] : '0%'}
                         </span>
                     </div>
                 </div>
@@ -325,8 +325,8 @@ export default function OutputPanel({
                             ></div>
                         </div>
                         <div className="flex justify-between text-[10px] text-slate-500 font-mono">
-                            <span>Avg Score: {analysisResult?.summary["Avg Confidence Score"] ?? 0}</span>
-                            <span>Total Analyzed: {analysisResult?.summary["Total Analyzed Reviews"] ?? 0}</span>
+                            <span>Avg Score: {ApiResult?.summary["Avg Confidence Score"] ?? 0}</span>
+                            <span>Total Analyzed: {ApiResult?.summary["Total Analyzed Reviews"] ?? 0}</span>
                         </div>
                     </div>
                     <p className="text-[11px] text-slate-400 light:text-slate-500 mt-2">Softmax activation score from backend inference.</p>

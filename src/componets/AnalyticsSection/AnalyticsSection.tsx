@@ -5,7 +5,14 @@ import { AnalyticsSectionProps } from '@/types';
 export default function AnalyticsSection({
     trendChartRef,
     aspectChartRef,
+    analysisResult,
 }: AnalyticsSectionProps) {
+    const totalAnalyzedReviews = analysisResult?.summary?.['Total Analyzed Reviews'] ?? 0;
+    const avgConfidenceScore = analysisResult?.summary?.['Avg Confidence Score']
+        ? `${(Number(analysisResult.summary['Avg Confidence Score']) * 100).toFixed(2)}%`
+        : '0.00%';
+    const positiveSentimentRatio = analysisResult?.summary?.['Positive Sentiment Ratio'] ?? '0%';
+    const highRiskEscalations = analysisResult?.summary?.['High Risk Escalations'] ?? 0;
     return (
         <section className="space-y-6 pt-4">
 
@@ -21,36 +28,36 @@ export default function AnalyticsSection({
                 <div className="glass-panel p-4 rounded-xl border border-slate-800 light:border-slate-200">
                     <div className="flex justify-between items-start mb-2">
                         <span className="text-xs font-medium text-slate-400">Total Analyzed Reviews</span>
-                        <span className="px-1.5 py-0.5 text-[10px] rounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">+14.2%</span>
+                        {/* <span className="px-1.5 py-0.5 text-[10px] rounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">+14.2%</span> */}
                     </div>
-                    <div className="text-2xl font-extrabold text-white light:text-slate-900 font-mono">1,428</div>
+                    <div className="text-2xl font-extrabold text-white light:text-slate-900 font-mono">{totalAnalyzedReviews}</div>
                     <p className="text-[11px] text-slate-500 mt-1">Across all active domain pipelines</p>
                 </div>
 
                 <div className="glass-panel p-4 rounded-xl border border-slate-800 light:border-slate-200">
                     <div className="flex justify-between items-start mb-2">
                         <span className="text-xs font-medium text-slate-400">Avg Confidence Score</span>
-                        <span className="px-1.5 py-0.5 text-[10px] rounded font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">+1.8%</span>
+                        {/* <span className="px-1.5 py-0.5 text-[10px] rounded font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">+1.8%</span> */}
                     </div>
-                    <div className="text-2xl font-extrabold text-white light:text-slate-900 font-mono">96.4%</div>
+                    <div className="text-2xl font-extrabold text-white light:text-slate-900 font-mono">{avgConfidenceScore}</div>
                     <p className="text-[11px] text-slate-500 mt-1">High inference certainty threshold</p>
                 </div>
 
                 <div className="glass-panel p-4 rounded-xl border border-slate-800 light:border-slate-200">
                     <div className="flex justify-between items-start mb-2">
                         <span className="text-xs font-medium text-slate-400">Positive Sentiment Ratio</span>
-                        <span className="px-1.5 py-0.5 text-[10px] rounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">+5.4%</span>
+                        {/* <span className="px-1.5 py-0.5 text-[10px] rounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">+5.4%</span> */}
                     </div>
-                    <div className="text-2xl font-extrabold text-emerald-400 font-mono">71.8%</div>
+                    <div className="text-2xl font-extrabold text-emerald-400 font-mono">{positiveSentimentRatio}</div>
                     <p className="text-[11px] text-slate-500 mt-1">Favorable customer ratings</p>
                 </div>
 
                 <div className="glass-panel p-4 rounded-xl border border-slate-800 light:border-slate-200">
                     <div className="flex justify-between items-start mb-2">
                         <span className="text-xs font-medium text-slate-400">High Risk Escalations</span>
-                        <span className="px-1.5 py-0.5 text-[10px] rounded font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">-3.1%</span>
+                        {/* <span className="px-1.5 py-0.5 text-[10px] rounded font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">-3.1%</span> */}
                     </div>
-                    <div className="text-2xl font-extrabold text-rose-400 font-mono">42</div>
+                    <div className="text-2xl font-extrabold text-rose-400 font-mono">{highRiskEscalations}</div>
                     <p className="text-[11px] text-slate-500 mt-1">Tickets flagged for support priority</p>
                 </div>
 
