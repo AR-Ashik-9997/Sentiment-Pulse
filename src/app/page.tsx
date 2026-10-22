@@ -4,11 +4,14 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Chart from 'chart.js/auto';
-import { AnalysisResult, AuditLog, PresetData } from '@/types';
+import { ApiResponse, PresetData } from '@/types';
 import Header from '@/componets/Navbar/Navbar';
 import InputPanel from '@/componets/InputSection/InputSection';
-import OutputPanel from '@/componets/OutputSection/OutputSection';
 import AnalyticsSection from '@/componets/AnalyticsSection/AnalyticsSection';
+import Footer from '@/componets/Footer/Footer';
+import OutputPanel from '@/componets/OutputSection/OutputSection';
+
+// Backend API Response structure
 
 
 const PRESETS: Record<string, PresetData> = {
@@ -26,14 +29,6 @@ const PRESETS: Record<string, PresetData> = {
   }
 };
 
-const INITIAL_AUDIT_LOGS: AuditLog[] = [
-  { id: 1, timestamp: "2026-10-20 20:45:12", domain: "Amazon Electronics Reviews", preview: "Absolutely thrilled with this purchase! The build quality...", verdict: "Positive", confidence: 98.6, priority: "Low" },
-  { id: 2, timestamp: "2026-10-20 20:22:04", domain: "Customer Service Support Tickets", preview: "App keeps crashing every time I try to open the payment tab...", verdict: "Negative", confidence: 94.2, priority: "Critical" },
-  { id: 3, timestamp: "2026-10-20 19:58:30", domain: "E-commerce Product Feedback", preview: "Standard delivery time. Item works as described in listing...", verdict: "Neutral", confidence: 88.1, priority: "Low" },
-  { id: 4, timestamp: "2026-10-20 19:15:45", domain: "App Store & SaaS User Reviews", preview: "Unusable after the latest firmware patch! Need refund ASAP...", verdict: "Negative", confidence: 96.8, priority: "High" },
-  { id: 5, timestamp: "2026-10-20 18:40:10", domain: "Amazon Electronics Reviews", preview: "Crisp audio sound stage and ergonomic earcups. Highly recommend!", verdict: "Positive", confidence: 97.5, priority: "Low" }
-];
-
 export default function SentimentPulseApp() {
   const [isDark, setIsDark] = useState<boolean>(true);
   const [domain, setDomain] = useState<string>('electronics');
@@ -43,14 +38,12 @@ export default function SentimentPulseApp() {
   const [isDictating, setIsDictating] = useState<boolean>(false);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
 
-  const [telemetryLatency, setTelemetryLatency] = useState<string>('14ms');
+  const [telemetryLatency, setTelemetryLatency] = useState<string>('0ms');
   const [inferenceTimestamp, setInferenceTimestamp] = useState<string>('Awaiting Input...');
-  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
-  const [copyStatus, setCopyStatus] = useState<string>('Copy Reply');
 
-  const [auditLogs, setAuditLogs] = useState<AuditLog[]>(INITIAL_AUDIT_LOGS);
-  const [activeLogFilter, setActiveLogFilter] = useState<string>('ALL');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  // Storing pure dynamic response from API
+  const [apiResult, setApiResult] = useState<ApiResponse | null>(null);
+  const [copyStatus, setCopyStatus] = useState<string>('Copy Reply');
 
   const trendChartRef = useRef<HTMLCanvasElement | null>(null);
   const aspectChartRef = useRef<HTMLCanvasElement | null>(null);
@@ -93,7 +86,7 @@ export default function SentimentPulseApp() {
     setInputText('');
     setWordCount(0);
     setCharCount(0);
-    setAnalysisResult(null);
+    setApiResult(null);
   };
 
   const toggleVoiceDictation = () => {
@@ -114,124 +107,54 @@ export default function SentimentPulseApp() {
     }
   };
 
-  const runNeuralInference = (text: string): AnalysisResult => {
-    const posKeywords = ['thrilled', 'excellent', 'great', 'amazing', 'exceeds', 'effortless', 'helpful', 'early', 'fast', 'sharp', 'promptly', 'crisp', 'recommend', 'love', 'best', 'good', 'sturdy'];
-    const negKeywords = ['frustrated', 'damaged', 'unfunctional', 'unhelpful', 'horrible', 'crashing', 'unusable', 'refund', 'bad', 'refused', 'slow', 'depletion', 'worst', 'issue', 'broken'];
-
-    let posCount = 0;
-    let negCount = 0;
-
-    const words = text.split(/\s+/);
-    const tokenWeights = words.map(w => {
-      const clean = w.toLowerCase().replace(/[^a-z0-9]/g, '');
-      let score = 0;
-      if (posKeywords.includes(clean)) {
-        score = Math.random() * 0.6 + 0.4;
-        posCount++;
-      } else if (negKeywords.includes(clean)) {
-        score = -(Math.random() * 0.6 + 0.4);
-        negCount++;
-      } else {
-        score = (Math.random() * 0.2) - 0.1;
-      }
-      return { word: w, weight: score };
-    });
-
-    let verdict: 'Positive' | 'Negative' | 'Neutral' = "Neutral";
-    let confidence = 85.0 + Math.random() * 10;
-    let polarity = 0.05;
-    let priority: 'Low' | 'Medium' | 'High' | 'Critical' = "Low";
-
-    if (posCount > negCount) {
-      verdict = "Positive";
-      confidence = Math.min(99.4, 88 + posCount * 3.2);
-      polarity = 0.65 + Math.random() * 0.3;
-      priority = "Low";
-    } else if (negCount > posCount) {
-      verdict = "Negative";
-      confidence = Math.min(98.9, 87 + negCount * 3.5);
-      polarity = -(0.60 + Math.random() * 0.35);
-      priority = negCount > 2 ? "Critical" : "High";
-    } else {
-      polarity = (Math.random() * 0.2) - 0.1;
-      priority = "Medium";
-    }
-
-    let autoReply = "";
-    if (verdict === "Positive") {
-      autoReply = "Thank you so much for your glowing feedback! We're thrilled to hear that the quality and performance exceeded your expectations. We look forward to serving you again soon!";
-    } else if (verdict === "Negative") {
-      autoReply = "We sincerely apologize for the issues you experienced with your recent order. Our support escalation team has been notified and we would like to issue a priority replacement or full refund right away.";
-    } else {
-      autoReply = "Thank you for sharing your detailed feedback with us. We appreciate your balanced insights regarding feature performance and will pass them along to our product development team.";
-    }
-
-    return {
-      verdict,
-      confidence: parseFloat(confidence.toFixed(1)),
-      polarity: parseFloat(polarity.toFixed(2)),
-      tokens: tokenWeights,
-      priority,
-      autoReply
-    };
-  };
-
-  const executeAnalysis = () => {
+  // Real API Call Implementation
+  const executeAnalysis = async () => {
     if (!inputText.trim()) {
       alert("Please enter or select a text review to analyze.");
       return;
     }
 
     setIsAnalyzing(true);
+    const startTime = Date.now();
+    const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api/analyze';
 
-    setTimeout(() => {
-      const result = runNeuralInference(inputText);
-      setAnalysisResult(result);
+    try {
+      const response = await fetch(`${apiUrl}/inference/review-dashboard`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          texts: [inputText]
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API Request failed with status ${response.status}`);
+      }
+
+      const data: ApiResponse = await response.json();
+
+      // Setting pure API response into state
+      setApiResult(data);
       setInferenceTimestamp(`Processed at ${new Date().toLocaleTimeString()}`);
-      setTelemetryLatency(`${Math.floor(Math.random() * 8) + 10}ms`);
+      setTelemetryLatency(`${Date.now() - startTime}ms`);
 
-      const domainMap: Record<string, string> = {
-        electronics: "Amazon Electronics Reviews",
-        customer_service: "Customer Service Support Tickets",
-        ecommerce: "E-commerce Product Feedback",
-        app_store: "App Store & SaaS User Reviews"
-      };
-
-      const newLog: AuditLog = {
-        id: Date.now(),
-        timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19),
-        domain: domainMap[domain] || domain,
-        preview: inputText.length > 55 ? inputText.substring(0, 55) + '...' : inputText,
-        verdict: result.verdict,
-        confidence: result.confidence,
-        priority: result.priority
-      };
-
-      setAuditLogs(prev => [newLog, ...prev]);
+    } catch (error) {
+      console.error("API Call Error:", error);
+      alert("Failed to analyze sentiment from API. Please check backend connection.");
+    } finally {
       setIsAnalyzing(false);
-    }, 400);
+    }
   };
 
   const copyAutoReply = () => {
-    if (!analysisResult || !analysisResult.autoReply) return;
-    navigator.clipboard.writeText(analysisResult.autoReply);
+    const replyText = apiResult?.detailed_results?.[0]?.auto_replay;
+    if (!replyText) return;
+
+    navigator.clipboard.writeText(replyText);
     setCopyStatus("Copied!");
     setTimeout(() => setCopyStatus("Copy Reply"), 2000);
-  };
-
-  const exportCSV = () => {
-    let csvContent = "data:text/csv;charset=utf-8,Timestamp,Domain,Corpus Preview,Verdict,Confidence,Priority\n";
-    auditLogs.forEach(l => {
-      const row = `"${l.timestamp}","${l.domain}","${l.preview.replace(/"/g, '""')}","${l.verdict}",${l.confidence},"${l.priority}"`;
-      csvContent += row + "\n";
-    });
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `SentimentPulse_Audit_Log_${Date.now()}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   };
 
   const renderCharts = useCallback(() => {
@@ -372,28 +295,12 @@ export default function SentimentPulseApp() {
     loadPreset('positive');
   }, []);
 
-  const filteredAuditLogs = auditLogs.filter(log => {
-    if (activeLogFilter === 'Critical') {
-      if (log.priority !== 'Critical' && log.priority !== 'High') return false;
-    } else if (activeLogFilter !== 'ALL') {
-      if (log.verdict !== activeLogFilter) return false;
-    }
-
-    if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
-    return (
-      log.preview.toLowerCase().includes(q) ||
-      log.domain.toLowerCase().includes(q) ||
-      log.verdict.toLowerCase().includes(q)
-    );
-  });
-
   return (
     <div className="text-slate-200 antialiased min-h-screen flex flex-col transition-colors duration-300 dark:bg-[#060911] light:bg-slate-50 light:text-slate-800" id="body-app">
       <Header
         telemetryLatency={telemetryLatency}
-        isDark={isDark}
-        toggleTheme={toggleTheme}
+      // isDark={isDark}
+      // toggleTheme={toggleTheme}
       />
 
       <main className="max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-8 flex-1">
@@ -413,7 +320,7 @@ export default function SentimentPulseApp() {
 
           <OutputPanel
             inferenceTimestamp={inferenceTimestamp}
-            analysisResult={analysisResult}
+            analysisResult={apiResult}
             copyAutoReply={copyAutoReply}
             copyStatus={copyStatus}
           />
@@ -425,12 +332,7 @@ export default function SentimentPulseApp() {
         />
       </main>
 
-      <footer className="border-t border-slate-800/80 bg-obsidian-950 py-4 text-center text-xs text-slate-500 light:bg-slate-100 light:border-slate-200 mt-12">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>&copy; 2026 SentimentPulse AI Enterprise Workspace. All rights reserved.</span>
-          <span className="font-mono text-[11px]">Bi-LSTM Deep Learning Engine Framework v2.4.0-release</span>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

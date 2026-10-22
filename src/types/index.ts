@@ -46,7 +46,7 @@ export interface InputPanelProps {
 
 export interface OutputPanelProps {
   inferenceTimestamp: string;
-  analysisResult: AnalysisResult | null;
+  analysisResult: ApiResponse | null;
   copyAutoReply: () => void;
   copyStatus: string;
 }
@@ -54,4 +54,24 @@ export interface OutputPanelProps {
 export interface AnalyticsSectionProps {
   trendChartRef: React.RefObject<HTMLCanvasElement | null>;
   aspectChartRef: React.RefObject<HTMLCanvasElement | null>;
+}
+
+export interface ApiResponse {
+  summary: {
+    "Total Analyzed Reviews": number;
+    "Avg Confidence Score": number;
+    "Positive Sentiment Ratio": string;
+    "High Risk Escalations": number;
+    "Aspect-Wise Sentiment Breakdown": Record<string, number>;
+  };
+  detailed_results: Array<{
+    text: string;
+    prediction: string;
+    confidence: number;
+    emotion: string;
+    aspect_impact: Record<string, number>;
+    priority_level: string;
+    high_risk: boolean;
+    auto_replay: string;
+  }>;
 }
