@@ -2,6 +2,7 @@
 
 
 import { InputPanelProps } from '@/types';
+import { useState } from 'react';
 
 
 
@@ -17,6 +18,11 @@ export default function InputPanel({
     executeAnalysis,
     isAnalyzing
 }: InputPanelProps) {
+    const [jsonResponse, setJsonResponse] = useState({
+        status: 'offline',
+        message: 'Server is currently offline as Render free limit reached. It will resume next month.'
+
+    });
     return (
         <section className="lg:col-span-5 glass-panel rounded-2xl p-5 lg:p-6 shadow-xl flex flex-col gap-5 border border-slate-800/80 light:border-slate-200">
             <div className="flex items-center justify-between border-b border-slate-800 light:border-slate-200 pb-3">
@@ -115,7 +121,7 @@ export default function InputPanel({
 
             <button
                 onClick={executeAnalysis}
-                disabled={isAnalyzing}
+                disabled={isAnalyzing || jsonResponse.status === 'offline'}
                 className="w-full py-3.5 px-6 rounded-xl bg-linear-to-r from-indigo-600 via-indigo-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-semibold text-sm shadow-lg glow-indigo transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.99] disabled:opacity-75 cursor-pointer"
             >
                 <i className={isAnalyzing ? "fa-solid fa-circle-notch animate-spin" : "fa-solid fa-wand-magic-sparkles"}></i>

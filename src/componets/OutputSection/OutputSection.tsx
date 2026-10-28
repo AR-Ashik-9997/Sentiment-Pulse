@@ -466,6 +466,7 @@ export default function OutputPanel({
                     )}
                 </div>
             </div>
+            <p className='text-red-500'>Server is currently offline as Render free limit reached. It will resume next month.</p>
 
         </section>
     );
